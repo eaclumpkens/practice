@@ -1,0 +1,12 @@
+GET http://localhost:3000/list/2
+
+###
+
+POST http://localhost:3000/list/add
+Content-Type: application/json
+
+{
+    "id": 7,
+    "name": "potato",
+    "color": "brown"
+}
