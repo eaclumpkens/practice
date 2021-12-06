@@ -1,20 +1,31 @@
 const axios = require('axios');
 
-const getUsers = async users => {
+const log = false; // error logs
 
-    const res = await new Promise((resolve, reject) => {
+const getUsers = users => {
+    let success = false;
+    let res;
+    
+    new Promise(resolve => {
         axios.get(`https://jsonplaceholder.typicode.com/${users}`)
-            .then(({ data }) => {
-                return resolve(data);
-            })
-            .catch(error => {
-                return reject(error);
-            })
+        .then(({ data }) => {
+            success = true;
+            res = data;
+        })
+        .catch(error => {
+            const { response = {} } = error;
+            const { status, statusText } = response;
 
+            log && console.error({ status, statusText });
+            res = 'No Results Found';
+        })
+        .finally(() => {
+            console.log({ success, res });
+            return resolve({ success, res })
+        })
     });
-
-    console.log('RESPONSE', res);
-
 };
 
-getUsers('users');
+
+getUsers('users'); // valid test
+getUsers('sdaff'); // invalid test
