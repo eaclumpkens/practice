@@ -20,8 +20,9 @@ function mid(req, res, next) {
     next();
 }
 
-app.get('/bootstrapTestApp', (req, res) => {
-    res.sendFile(path.join(__dirname, '/bootstrap.html'));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/practice/bootstrap.html'));
 });
 
 app.get('/list/:id', mid, (req, res) => {
@@ -42,7 +43,7 @@ app.post('/list/add', async (req, res) => {
             await writeFileAsync('./utils/sampleList.js', newFile);
             res.send(req.body);
         } catch (error) {
-            res.send('Error rewriting ./utils/samplelist.js');
+            res.send('Error rewriting ./utils/sampleList.js');
         }
     }
     else res.send('Invalid request body')
